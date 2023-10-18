@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,33 +10,11 @@
         background: linear-gradient(0deg, rgba(188,188,188,0.5) 0%, rgba(79,131,182,0.5) 100%);">
 
     <div id="main" class="container">
-
         <div class="d-flex align-items-center justify-content-center vh-100">
-            <form method="POST" action="{{ route('register') }}" class="p-5 border rounded-3"
+            <form method="POST" action="{{ route('password.store') }}" class="p-5 border border-3 rounded-3"
                 style="background:#edf2f7">
                 @csrf
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    {{-- <input type="text" name="name" class="form-control" id="name"> --}}
-                    <input type="text" class="form-control @error('name') border border-danger @enderror"
-                        id="name" name="name" value="{{ old('name') }}">
-                    @error('name')
-                        <p class="text-danger text-sm">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="surname" class="form-label">Surname</label>
-                    {{-- <input type="surname" name="surname" class="form-control" id="surname"> --}}
-                    <input type="text" class="form-control @error('surname') border border-danger  @enderror"
-                        id="surname" name="surname" value="{{ old('surname') }}">
-                    @error('surname')
-                        <p class="text-danger text-sm">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
+                <input type="hidden" name="token" value="{{ $request->route('token') }}">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                     {{-- <input type="email" name="email" class="form-control" id="exampleInputEmail1"> --}}
@@ -72,13 +51,7 @@
                     @enderror
                 </div>
                 <div class="text-center pt-3">
-                    <button type="submit" class="btn btn-primary text-center">REGISTER</button>
-                </div>
-                <div class="text-center pt-2">
-                    <a class="uunderline text-sm link-secondary"
-                        href="{{ route('login') }}">
-                        {{ __('Already registered?') }}
-                    </a>
+                    <button type="submit" class="btn btn-primary">RESET PASSWORD</button>
                 </div>
             </form>
         </div>
@@ -91,4 +64,4 @@
     </script>
 </body>
 
-</html>l
+</html>
