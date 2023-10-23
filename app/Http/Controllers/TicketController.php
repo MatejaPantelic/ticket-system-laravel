@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Api\TicketController as ApiTicketController;
+use App\Http\Requests\CreateTicketRequest;
 use App\Http\Requests\TicketNumberRequest;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
+
+
 class TicketController extends Controller
 {
+    protected $apiTicketController;
+
+    public function __construct(ApiTicketController $apiTicketController)
+    {
+        $this->apiTicketController = $apiTicketController;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -21,15 +31,25 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+        return view("tickets.create");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateTicketRequest $request)
     {
-        //
+        $ticket = new Ticket();
+        $ticket->valid=1;
+        $ticket->ticket_number = $this->apiTicketController->generateUniqueTicketNumber();
+        $ticket->owner_name = $request->owner_name;
+        $ticket->owner_surname = $request->owner_surname;
+        $ticket->price = $request->price;
+        $ticket->save();
+
+        return redirect()
+        ->back()
+        ->withSuccess('Ticket was created successfuly!');
     }
 
     /**
@@ -39,7 +59,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::where("ticket_number", $request->ticket_number)->first();
         return view('tickets.index')->with([
-            'ticket' => $ticket,
+            'ticket' => $ticket
         ]);
     }
 
@@ -56,13 +76,12 @@ class TicketController extends Controller
      */
     public function update(Request $request)
     {
-        // dd($request);
-        Ticket::where('ticket_number',$request->ticket_number)->update(['valid'=>'0']);
+        Ticket::where('ticket_number', $request->ticket_number)->update(['valid' => '0']);
         $ticket = Ticket::where("ticket_number", $request->ticket_number)->first();
-        // dd($ticket);
-        return view('tickets.index')->with([
-            'ticket' => $ticket,
-        ]);
+        return view('tickets.index')
+            ->with([
+                'ticket' => $ticket,
+            ]);
     }
 
     /**

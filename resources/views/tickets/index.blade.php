@@ -1,22 +1,27 @@
 <x-app-layout>
+
+    @if (session()->has('por'))
+        <div class="alert alert-success">
+            {{ session()->get('por') }}
+        </div>
+    @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <div class="bg-gray-100 p-8 w-1/2 mx-auto mt-8 rounded-lg shadow-lg">
-                        <h1 class="text-2xl font-semibold mb-4">Check Ticket Status</h1>
-
-                        <form action="{{ route('ticket.valid') }}" method="POST">
+                    <div class="bg-gray-100 p-8 w-96 mx-auto rounded-lg shadow-lg">
+                        <h1 class="text-center text-2xl font-semibold mb-4">Check Ticket Status</h1>
+                        <form action="{{ route('ticket.valid') }}" method="POST" class="grid justify-items-center">
                             @csrf
 
                             <div class="mb-4">
-                                <label for="ticket_number" class="block text-gray-700 text-sm font-bold mb-2">Ticket
+                                <label for="ticket_number" class="block text-gray-700 text-sm font-bold mb-1">Ticket
                                     Number</label>
                                 <input type="text" id="ticket_number" name="ticket_number"
-                                    class="w-3/5 p-2 border rounded-lg  @error('ticket_number') border border-danger  @enderror"
+                                    class="p-2 border rounded-lg  @error('ticket_number') border border-danger  @enderror"
                                     placeholder="Enter your ticket number" value="{{ old('ticket_number') }}">
                                 <button type="submit"
-                                    class="w-1/5 bg-blue-500 text-white ml-2 p-2 rounded-lg hover:bg-blue-600 transition duration-200">Check</button>
+                                    class="bg-blue-500 text-white ml-2 p-2 rounded-lg hover:bg-blue-600 transition duration-200">Check</button>
                                 @error('ticket_number')
                                     <p class="text-danger text-sm">
                                         {{ $message }}

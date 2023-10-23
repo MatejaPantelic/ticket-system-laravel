@@ -36,5 +36,8 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/ticket-info',[TicketController::class,'show'])->name('ticket.valid');
 Route::patch('/ticket-info',[TicketController::class,'update'])->name('ticket.check');
+Route::get('/ticket-create',[TicketController::class,'create'])->name('ticket.create');
+Route::post('/ticket-create',[TicketController::class,'store'])->name('ticket.store');
+
 
 require __DIR__.'/auth.php';

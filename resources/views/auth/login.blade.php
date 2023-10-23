@@ -15,7 +15,6 @@
                 @csrf
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    {{-- <input type="text" name="email" class="form-control" id="exampleInputEmail1"> --}}
                     <input type="email" class="form-control @error('email') border border-danger  @enderror"
                         id="exampleInputEmail1" name="email" value="{{ old('email') }}">
                     @error('email')
@@ -26,7 +25,6 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    {{-- <input type="password" name="password" class="form-control" id="exampleInputPassword1"> --}}
                     <input type="password" class="form-control @error('password') border border-danger @enderror"
                         id="exampleInputPassword1" name="password" value="{{ old('password') }}">
                     @error('password')
