@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\TicketNumberRequest;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class WebAuthController extends Controller
+class TicketController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        //
     }
 
     /**
@@ -35,28 +35,18 @@ class WebAuthController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showLogin()
+    public function show(TicketNumberRequest $request)
     {
-        return view('auth.login');
-    }
-    public function showRegister()
-    {
-        return view('auth.register');
-    }
-    public function loginUser(LoginRequest $request)
-    {
-        return view('tickets.index');
-    }
-    public function registerUser(LoginRequest $request)
-    {
-
-        return view('tickets.index');
+        $ticket = Ticket::where("ticket_number", $request->ticket_number)->first();
+        return view('tickets.index')->with([
+            'ticket' => $ticket,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
+    public function edit(string $id)
     {
         //
     }
@@ -66,13 +56,19 @@ class WebAuthController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        // dd($request);
+        Ticket::where('ticket_number',$request->ticket_number)->update(['valid'=>'0']);
+        $ticket = Ticket::where("ticket_number", $request->ticket_number)->first();
+        // dd($ticket);
+        return view('tickets.index')->with([
+            'ticket' => $ticket,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(string $id)
     {
         //
     }

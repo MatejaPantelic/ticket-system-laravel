@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Ticket;
+use App\Rules\TicketNumberExists;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class TicketNumberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +24,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required',
-            'surname'=>'required',
-            'email' => 'required|email',
-            'password' => 'required',
+            'ticket_number'=>['required','string', new TicketNumberExists],
         ];
     }
 }
