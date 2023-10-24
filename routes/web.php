@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,5 +40,9 @@ Route::patch('/ticket-info',[TicketController::class,'update'])->name('ticket.ch
 Route::get('/ticket-create',[TicketController::class,'create'])->name('ticket.create');
 Route::post('/ticket-create',[TicketController::class,'store'])->name('ticket.store');
 
+Route::get('/users',[UserController::class,'index'])->name('user.index');
+Route::delete('/user-delete/{user_id}/',[UserController::class,'destroy'])->name('user.destroy');
+Route::post('/assign-admin/{user_id}/',[UserController::class,'assignAdminRole'])->name('user.assignAdmin');
+Route::post('/assign-controller/{user_id}/',[UserController::class,'assignControllerRole'])->name('user.assignController');
 
 require __DIR__.'/auth.php';
