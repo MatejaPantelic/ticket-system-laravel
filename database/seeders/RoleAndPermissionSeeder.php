@@ -19,9 +19,11 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'create-ticket']);
         Permission::create(['name' => 'information-ticket']);
         Permission::create(['name' => 'check-ticket']);
+        Permission::create(['name' => 'show-users-list']);
 
         $adminRole->syncPermissions([
             'create-ticket',
+            'show-users-list',
         ]);
         $controllerRole->syncPermissions([
             'information-ticket',
